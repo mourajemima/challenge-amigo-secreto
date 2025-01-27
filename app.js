@@ -1,16 +1,23 @@
 let amigos = [];
 
 function adicionarAmigo(){
-    let nomeDoAmigo = document.getElementById('amigo').value;
-
-    if (!nomeDoAmigo){
+    let nomeDoAmigo = document.querySelector('#amigo');
+    let nomeDoAmigoValor = nomeDoAmigo.value;
+    
+    if(!nomeDoAmigoValor){
         alert('Por favor, insira um nome para ser adicionado ao sorteio!');
     } else{
-        amigos.push(nomeDoAmigo);
+        if(amigos.includes(nomeDoAmigoValor)){
+            alert('Este nome já foi adicionado.');
+        } else {
+            amigos.push(nomeDoAmigoValor);
+        }
     }
     //verificar se está adicionando nome na lista
     console.log(amigos);
-
+    limparCampo(nomeDoAmigo);
 }
 
-
+function limparCampo(campo){
+    campo.value = '';
+}

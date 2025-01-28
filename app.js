@@ -1,23 +1,35 @@
 let amigos = [];
+let listaDeAmigos = document.querySelector('#listaAmigos');
 
 function adicionarAmigo(){
     let nomeDoAmigo = document.querySelector('#amigo');
     let nomeDoAmigoValor = nomeDoAmigo.value;
-    
-    if(!nomeDoAmigoValor){
+    let nome = nomeDoAmigoValor[0].toUpperCase() + nomeDoAmigoValor.substring(1);
+
+    if(!nome){
         alert('Por favor, insira um nome para ser adicionado ao sorteio!');
     } else{
-        if(amigos.includes(nomeDoAmigoValor)){
+        if(amigos.includes(nome)){
             alert('Este nome já foi adicionado.');
         } else {
-            amigos.push(nomeDoAmigoValor);
+            amigos.push(nome);
         }
     }
-    //verificar se está adicionando nome na lista
-    console.log(amigos);
+
     limparCampo(nomeDoAmigo);
+    listarAmigos();
 }
 
 function limparCampo(campo){
     campo.value = '';
 }
+
+
+function listarAmigos(){
+    listaDeAmigos.innerHTML = '';
+    
+    for(i = 0; i < amigos.length; i++){
+        listaDeAmigos.innerHTML += `<li>${amigos[i]}</li>`;
+    }
+}
+

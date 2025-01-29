@@ -1,22 +1,26 @@
 let amigos = [];
-let listaDeAmigos = document.querySelector('#listaAmigos');
+let campoNomeDoAmigo = document.querySelector('#amigo');
+let campoListaDeAmigos = document.querySelector('#listaAmigos');
+let campoResultado = document.querySelector('#resultado');
 
 function adicionarAmigo(){
-    let nomeDoAmigo = document.querySelector('#amigo');
-    let nomeDoAmigoValor = nomeDoAmigo.value;
+    let nomeDoAmigoValor = campoNomeDoAmigo.value.trim();
+
+    if(!nomeDoAmigoValor){
+        alert('Por favor, insira um nome para ser adicionado ao sorteio!');
+        return;
+    } 
+
     let nome = nomeDoAmigoValor[0].toUpperCase() + nomeDoAmigoValor.substring(1);
 
-    if(!nome){
-        alert('Por favor, insira um nome para ser adicionado ao sorteio!');
-    } else{
-        if(amigos.includes(nome)){
-            alert('Este nome já foi adicionado.');
-        } else {
-            amigos.push(nome);
-        }
+    if(amigos.includes(nome)){
+        alert('Este nome já foi adicionado.');
+        return;
+    } else {
+        amigos.push(nome);
     }
 
-    limparCampo(nomeDoAmigo);
+    limparCampo(campoNomeDoAmigo);
     listarAmigos();
 }
 
@@ -26,10 +30,21 @@ function limparCampo(campo){
 
 
 function listarAmigos(){
-    listaDeAmigos.innerHTML = '';
+    campoListaDeAmigos.innerHTML = '';
     
-    for(i = 0; i < amigos.length; i++){
-        listaDeAmigos.innerHTML += `<li>${amigos[i]}</li>`;
+    for(let i = 0; i < amigos.length; i++){
+        campoListaDeAmigos.innerHTML += `<li>${amigos[i]}</li>`;
+    }
+}
+
+function sortearAmigo(){
+    let palavra = amigos.length == 0 ? 'algum' : 'mais de um';
+
+    if (amigos.length < 2){
+        alert(`Por favor, adicione ${palavra} nome ao sorteio.`);
+    } else{
+        let amigoSorteado = Math.floor(Math.random() * amigos.length);
+        campoResultado.innerHTML = `<li>${amigos[amigoSorteado]}</li>`;
     }
 }
 
